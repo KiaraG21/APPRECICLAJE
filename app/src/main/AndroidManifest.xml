@@ -21,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.historial.HistorialActivity" />
+        <activity android:name=".ui.reporte.ReporteActivity" />
+        <activity android:name=".ui.registro.RegistroActivity" />
     </application>
 
 </manifest>
