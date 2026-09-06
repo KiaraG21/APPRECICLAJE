@@ -18,9 +18,9 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
-            android:contentDescription="Back"
             android:padding="8dp"
-            android:src="@android:drawable/ic_menu_revert"
+            android:contentDescription="Volver"
+            android:src="@drawable/ic_flecha"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="REPORTE"
+            android:text="@string/tab_reporte"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -54,7 +54,7 @@
             android:layout_weight="1"
             android:background="@color/tab_gray"
             android:gravity="center"
-            android:text="HOY"
+            android:text="@string/tab_hoy"
             android:textColor="@color/black" />
 
         <View
@@ -68,7 +68,7 @@
             android:layout_weight="1"
             android:background="@color/tab_gray"
             android:gravity="center"
-            android:text="HISTORIAL"
+            android:text="@string/tab_historial"
             android:textColor="@color/black" />
 
         <View
@@ -82,7 +82,7 @@
             android:layout_weight="1"
             android:background="@color/background_gray"
             android:gravity="center"
-            android:text="REPORTE"
+            android:text="@string/tab_reporte"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
@@ -103,6 +103,7 @@
 
             <!-- Month Chip -->
             <TextView
+                android:id="@+id/txt_mes_reporte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
@@ -114,44 +115,42 @@
                 android:text="MES : AGOSTO 2026"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:elevation="4dp" />
 
-            <!-- Summary Card -->
+            <!-- Resumen Card -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/card_gray"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="24dp"
+                android:elevation="4dp">
 
-                <TextView
-                    android:id="@+id/txt_reporte_plastico"
-                    android:layout_width="wrap_content"
+                <!-- Contenedor Dinámico para los 7 tipos de materiales -->
+                <LinearLayout
+                    android:id="@+id/container_resumen_materiales"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="PLÁSTICO: 150Kg (43%)"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_reporte_metal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="METAL:      80Kg (23%)"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_reporte_papel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="PAPEL:    120Kg (34%)"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
+                    <!-- Aquí se añadirán dinámicamente los TextViews por código -->
+                    <!-- Ejemplo visual -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PLÁSTICO: 150Kg (43%)"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="METAL: 80Kg (23%)"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -165,7 +164,6 @@
                     android:layout_height="200dp"
                     android:layout_marginTop="16dp">
 
-                    <!-- Simulated Donut Chart -->
                     <View
                         android:id="@+id/donutPlaceholder"
                         android:layout_width="140dp"
@@ -175,119 +173,16 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <!-- Legend -->
+                    <!-- Legend Dinámica -->
                     <LinearLayout
+                        android:id="@+id/container_leyenda"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
-
-                        <!-- Plástico -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-                            <View
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:background="@color/chart_plastic" />
-                            <TextView
-                                android:id="@+id/txt_legend_plastic"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="Plástico"
-                                android:textSize="12sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <!-- Metal -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-                            <View
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:background="@color/chart_metal" />
-                            <TextView
-                                android:id="@+id/txt_legend_metal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="Metal"
-                                android:textSize="12sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <!-- Papel -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-                            <View
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:background="@color/chart_paper" />
-                            <TextView
-                                android:id="@+id/txt_legend_paper"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="Papel"
-                                android:textSize="12sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <!-- Baterías -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-                            <View
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:background="@color/chart_batteries" />
-                            <TextView
-                                android:id="@+id/txt_legend_batteries"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="Baterías"
-                                android:textSize="12sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <!-- M.P -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-                            <View
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:background="@color/chart_mp" />
-                            <TextView
-                                android:id="@+id/txt_legend_mp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="M.P"
-                                android:textSize="12sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
+                        <!-- Los items de leyenda se inflarán aquí por código -->
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -306,27 +201,31 @@
             </LinearLayout>
 
             <!-- Export Buttons -->
-            <Button
-                android:layout_width="220dp"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_export_pdf"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:backgroundTint="@color/text_gray"
-                android:text="EXPORTAR PDF"
+                android:text="@string/btn_export_pdf"
                 android:textColor="@color/white"
                 app:icon="@drawable/pdf"
-                app:iconPadding="10dp"
-                app:iconGravity="textStart" />
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:cornerRadius="8dp" />
 
-            <Button
-                android:layout_width="220dp"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_export_csv"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:backgroundTint="@color/text_gray"
-                android:text="EXPORTAR CSV"
+                android:text="@string/btn_export_csv"
                 android:textColor="@color/white"
                 app:icon="@drawable/csv"
-                app:iconPadding="10dp"
-                app:iconGravity="textStart" />
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:cornerRadius="8dp" />
 
         </LinearLayout>
     </ScrollView>
