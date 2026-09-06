@@ -50,6 +50,7 @@
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <TextView
+            android:id="@+id/tab_hoy"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -64,6 +65,7 @@
             android:background="@color/tab_gray" />
 
         <TextView
+            android:id="@+id/tab_historial"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -79,6 +81,7 @@
             android:background="@color/tab_gray" />
 
         <TextView
+            android:id="@+id/tab_reporte"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
