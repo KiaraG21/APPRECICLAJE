@@ -11,16 +11,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.APPECOLIM">
+
+        <!-- Actividad Principal (Preexistente) -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- ============================================================== -->
+        <!-- NUEVA IMPLEMENTACIÓN / ACTIVIDAD AGREGADA                     -->
+        <!-- ============================================================== -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MenuPrincipalActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
