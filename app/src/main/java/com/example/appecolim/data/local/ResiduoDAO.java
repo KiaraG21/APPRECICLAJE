@@ -65,11 +65,12 @@ public class ResiduoDAO {
         return db.rawQuery(query, parametros.toArray(new String[0]));
     }
 
-    // 4. Editar la cantidad de un registro de HOY (si el empleado se equivocó)
-    public boolean actualizarCantidad(int idLocal, double nuevaCantidad) {
+    // 4. Editar un registro de HOY: tipo y/o cantidad (si el empleado se equivocó)
+    public boolean actualizarResiduo(int idLocal, String nuevoTipo, double nuevaCantidad) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put("tipo", nuevoTipo);
         values.put("cantidad_kg", nuevaCantidad);
         values.put("estado_sync", "pendiente"); // como cambió, hay que volver a sincronizar
 
