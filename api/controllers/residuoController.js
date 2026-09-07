@@ -145,15 +145,53 @@ async function reporteMensual(req, res) {
   }
 }
 
+// Los 7 valores válidos de "tipo", según la especificación acordada con el equipo
+const TIPOS_VALIDOS = [
+  'papel_carton',
+  'plastico',
+  'metal',
+  'restos_de_comida',
+  'residuos_de_jardin',
+  'pilas_baterias',
+  'material_punzocortante',
+];
+
 // PUT /residuos/:id_local
 async function actualizarResiduo(req, res) {
   try {
     const { id_local } = req.params;
-    const { cantidad_kg } = req.body;
+    const { cantidad_kg, tipo } = req.body;
+
+    if (cantidad_kg === undefined && tipo === undefined) {
+      return res.status(400).json({
+        mensaje: 'Debes enviar al menos cantidad_kg o tipo para actualizar',
+      });
+    }
+
+    const camposActualizar = {};
+
+    if (cantidad_kg !== undefined) {
+      if (typeof cantidad_kg !== 'number') {
+        return res.status(400).json({ mensaje: "El campo 'cantidad_kg' debe ser de tipo number" });
+      }
+      camposActualizar.cantidad_kg = cantidad_kg;
+    }
+
+    if (tipo !== undefined) {
+      if (typeof tipo !== 'string') {
+        return res.status(400).json({ mensaje: "El campo 'tipo' debe ser de tipo string" });
+      }
+      if (!TIPOS_VALIDOS.includes(tipo)) {
+        return res.status(400).json({
+          mensaje: `El campo 'tipo' debe ser uno de: ${TIPOS_VALIDOS.join(', ')}`,
+        });
+      }
+      camposActualizar.tipo = tipo;
+    }
 
     const residuo = await Residuo.findOneAndUpdate(
       { id_local },
-      { cantidad_kg },
+      camposActualizar,
       { new: true }
     );
 

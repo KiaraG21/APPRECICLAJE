@@ -31,11 +31,7 @@ router.post(
 router.get('/residuos/hoy', validarQueryStrings(['id_empleado']), residuosHoy);
 
 // PUT /residuos/:id_local
-router.put(
-  '/residuos/:id_local',
-  validarBody({ cantidad_kg: 'number' }),
-  actualizarResiduo
-);
+router.put('/residuos/:id_local', actualizarResiduo);
 
 // GET /historial?id_empleado=&fecha=&tipo=
 router.get(
