@@ -14,6 +14,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // El modo de prueba nunca escribe en ecoreg.db ni necesita alterar el login.
+    public DataBaseHelper(Context context, boolean pruebasClasificacion) {
+        super(context, pruebasClasificacion ? "ecoreg_clasificacion_pruebas.db" : DATABASE_NAME,
+                null, DATABASE_VERSION);
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Tabla del empleado (datos guardados en el celular para login offline)

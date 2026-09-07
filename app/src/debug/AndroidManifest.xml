@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- Acceso independiente solo para desarrollo; no altera el launcher existente. -->
+        <activity-alias android:name=".ClasificacionPreview"
+            android:targetActivity=".clasificacion.ClasificacionActivity"
+            android:label="@string/clasificacion_preview" android:exported="true" android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+    </application>
+</manifest>

@@ -3,6 +3,8 @@ plugins {
 }
 
 android {
+    val clasificacionPreview = providers.gradleProperty("clasificacionPreview").orElse("false").get().toBoolean()
+    buildFeatures { buildConfig = true }
     namespace = "com.example.appecolim"
     compileSdk {
         version = release(37)
@@ -19,7 +21,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("boolean", "CLASIFICACION_PREVIEW", clasificacionPreview.toString())
+        }
         release {
+            buildConfigField("boolean", "CLASIFICACION_PREVIEW", "false")
             optimization {
                 enable = false
             }
