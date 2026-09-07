@@ -27,7 +27,7 @@ public class HistorialActivity extends AppCompatActivity {
     private List<Residuo> listaResiduos = new ArrayList<>();
 
     // Variables para guardar los filtros actuales
-    private String filtroMesSeleccionado = "";
+    private String filtroFechaSeleccionada = "";
     private String filtroTipoSeleccionado = "";
 
     @Override
@@ -45,8 +45,8 @@ public class HistorialActivity extends AppCompatActivity {
         adapter = new ResiduoAdapter(listaResiduos, true);
         rvHistorial.setAdapter(adapter);
 
-        // Click en Filtro de Fecha (Ventana Emergente por Mes)
-        btnFiltroFecha.setOnClickListener(v -> mostrarSelectorMes());
+        // Click en Filtro de Fecha (Ventana Emergente por Día Exacto)
+        btnFiltroFecha.setOnClickListener(v -> mostrarSelectorFecha());
 
         // Click en Filtro de Tipo (Ventana Emergente con lista de materiales)
         btnFiltroTipo.setOnClickListener(v -> mostrarSelectorTipo());
@@ -65,17 +65,17 @@ public class HistorialActivity extends AppCompatActivity {
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
     }
 
-    private void mostrarSelectorMes() {
+    private void mostrarSelectorFecha() {
         Calendar cal = Calendar.getInstance();
-        // Nota: Un DatePickerDialog estándar selecciona día, pero lo configuraremos para que sea intuitivo
         DatePickerDialog datePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-            // Formateamos el mes seleccionado (Ej: 2026-09)
-            filtroMesSeleccionado = String.format(Locale.getDefault(), "%04d-%02d", year, month + 1);
-            btnFiltroFecha.setText("MES: " + (month + 1) + "/" + year);
+            // Formateamos la fecha seleccionada (Ej: 2026-09-06) para la API
+            filtroFechaSeleccionada = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, dayOfMonth);
+            // Actualizamos el botón con la fecha completa
+            btnFiltroFecha.setText("FECHA: " + dayOfMonth + "/" + (month + 1) + "/" + year);
             cargarDatosDeAPI(); // Llamada a tu GET /historial con filtros
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
-        datePicker.setTitle("Seleccionar Mes");
+        datePicker.setTitle("Seleccionar Fecha Exacta");
         datePicker.show();
     }
 
@@ -112,7 +112,7 @@ public class HistorialActivity extends AppCompatActivity {
         // que ya probaste en Postman.
         
         // Simulación: Imprimir los parámetros que se enviarían a la API
-        android.util.Log.d("API_HISTORIAL", "Llamando a: /historial?fecha=" + filtroMesSeleccionado + "&tipo=" + filtroTipoSeleccionado);
+        android.util.Log.d("API_HISTORIAL", "Llamando a: /historial?fecha=" + filtroFechaSeleccionada + "&tipo=" + filtroTipoSeleccionado);
 
         // LÓGICA DE SUMA DINÁMICA (Para que salga en el XML el total actualizado)
         double sumaTotal = 0;
