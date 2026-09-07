@@ -6,6 +6,18 @@ async function crearEmpleado(req, res) {
   try {
     const { nombre, codigo, cargo, turno, password, rol } = req.body;
 
+    if (password.length < 8) {
+      return res.status(400).json({
+        mensaje: "La contraseña debe tener al menos 8 caracteres",
+      });
+    }
+
+    if (codigo.length < 4) {
+      return res.status(400).json({
+        mensaje: "El código debe tener al menos 4 caracteres",
+      });
+    }
+
     if (rol !== 'admin' && rol !== 'operario') {
       return res.status(400).json({ mensaje: "El campo 'rol' debe ser 'admin' u 'operario'" });
     }
